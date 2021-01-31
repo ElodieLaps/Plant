@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import axios from 'axios';
 
 export const initialState = {
   loading: false,
@@ -31,18 +32,21 @@ export const plantsSelector = state => state.plant;
 
 export default plantSlice.reducer;
 
-
 export function fetchPlants() {
   return async dispatch => {
     dispatch(getPlants());
 
-    try {
-      const response = await fetch('https://cors-anywhere.herokuapp.com/https://trefle.io/api/v1/plants?token=E_3Wy2VspiI0ykCPxVnll0ha1x5XEBGbSavaOgaCwOI');
-      const data = await response.json();
-      dispatch(getPlantsSuccess(data));
-
-    } catch (error) {
-      dispatch(getPlantsFailure());
-    }
+    await axios.get('https://cors-anywhere.herokuapp.com/https://trefle.io/api/v1/plants?token=E_3Wy2VspiI0ykCPxVnll0ha1x5XEBGbSavaOgaCwOI')
+      .then(function (response) {
+        const data =  response.data;
+        dispatch(getPlantsSuccess(data));
+      })
+      .catch(function (error) {
+        console.log(error)
+        dispatch(getPlantsFailure());
+      })
   }
 }
+
+
+

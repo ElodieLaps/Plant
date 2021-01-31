@@ -34,8 +34,8 @@ const PrettyStyle = styled.div`
    &:hover {
       div.hover {
          visibility: visible;
-         background: rgb(54,44,92);
-background: linear-gradient(61deg, rgba(54,44,92,0.7567401960784313) 0%, rgba(104,60,153,0.4906337535014006) 35%, rgba(202,222,203,0) 100%);
+         background-color: rgb(54,44,92);
+         background: linear-gradient(61deg, rgba(54,44,92,0.7567401960784313) 0%, rgba(104,60,153,0.4906337535014006) 35%, rgba(202,222,203,0) 100%);
          
       }
    }
