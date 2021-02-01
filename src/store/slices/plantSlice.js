@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
+const token = 'E_3Wy2VspiI0ykCPxVnll0ha1x5XEBGbSavaOgaCwOI';
+
 export const initialState = {
   loading: false,
   hasErrors: false,
   plants: {},
-  page: 0,
-  prevY: 0
 };
 
 const plantSlice = createSlice({
@@ -25,33 +25,26 @@ const plantSlice = createSlice({
       state.loading = false;
       state.hasErrors = true;
     },
-    setPage: (state, {playload}) => {
-      state.page = state.page + playload;
-    },
-    setPrevY: (state, {playload}) => {
-      state.prevY = playload;
-    }
   },
 });
 
-export const { getPlants, getPlantsSuccess, getPlantsFailure, setPage, setPrevY } = plantSlice.actions
+export const { getPlants, getPlantsSuccess, getPlantsFailure } = plantSlice.actions
 
 export const plantsSelector = state => state.plant;
 
 export default plantSlice.reducer;
 
-export function fetchPlants() {
+export function fetchPlants(page) {
   return async dispatch => {
     dispatch(getPlants());
 
     await axios
       .get(
-        'https://cors-anywhere.herokuapp.com/https://trefle.io/api/v1/plants?token=E_3Wy2VspiI0ykCPxVnll0ha1x5XEBGbSavaOgaCwOI'
+        `https://cors-anywhere.herokuapp.com/https://trefle.io/api/v1/plants?token=${token}&page=${page}`
       )
         .then(response => {
           const data =  response.data;
           dispatch(getPlantsSuccess(data));
-          dispatch(setPage(1));
         })
       .catch(error => {
         console.log(error)

@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-//import Plants from '../components/Plants';
-import ScrollPlants from '../components/Plants/ScrollPlants';
+import Plants from '../components/Plants';
 
 const App = () => {
   return (
-    <div className="App">
+    <PrettyStyle className="App">
       <h1>viridi</h1>
-      <ScrollPlants/>
-    </div>
+      <Plants/>
+    </PrettyStyle>
   );
 }
 

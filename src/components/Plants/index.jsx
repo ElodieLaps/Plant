@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { fetchPlants, plantsSelector } from './../../store/slices/plantSlice';
@@ -7,10 +7,16 @@ import Plant from './Plant';
 const Plants = () => {
    const dispatch = useDispatch();	
    const { plants, loading, hasErrors } = useSelector(plantsSelector);
+   const [ page, setPage ] = useState(1);
+
+   const getNextPage = () => {
+      let nextPage = page + 1;
+      return setPage(nextPage);
+   }
    
    useEffect(() => {
-      dispatch(fetchPlants());
-   }, [dispatch]);
+      dispatch(fetchPlants(page));
+   }, [dispatch, page]);
    
    const renderPlants = () => {
       if (loading) return <p>Plants is loading</p>
@@ -30,6 +36,7 @@ const Plants = () => {
    
    return (  
       <PrettyStyle>
+         <button onClick={() => getNextPage()}>next</button>
          {renderPlants()}
       </PrettyStyle>
    );

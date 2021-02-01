@@ -4,7 +4,12 @@ import styled from 'styled-components';
 
 const Plant = ({name, picture, slug, gridNumber, action}) => {
    return (  
-   <PrettyStyle className={`plant ${slug} grid-${gridNumber}`} url={picture} onClick={action}>
+   <PrettyStyle 
+      className={`plant ${slug} grid-${gridNumber}`} 
+      url={picture} 
+      default_url={default_plant} 
+      onClick={action}
+   >
       <div className="hover">
          <h2 className="title">{name}</h2>
       </div>
@@ -13,7 +18,7 @@ const Plant = ({name, picture, slug, gridNumber, action}) => {
 }
 
 const PrettyStyle = styled.div`
-   background-image: url(${props => props.url});
+   background-image: url(${props => props.url ? props.url : props.default_url});
    background-size: cover;
    border-radius: 2px;
    cursor: pointer;
@@ -39,7 +44,6 @@ const PrettyStyle = styled.div`
          
       }
    }
-
 `
 
 Plant.defaultProps = {
