@@ -1,17 +1,42 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { fetchPlants, plantsSelector } from './../../store/slices/plantSlice';
+import { fetchPlants, plantsSelector, setPage, setPrevY } from './../../store/slices/plantSlice';
 import Plant from './Plant';
 
-const Plants = () => {
+const ScrollPlants = () => {
    const dispatch = useDispatch();	
    const { plants, loading, hasErrors } = useSelector(plantsSelector);
    
+   //ça parce que sinon il me dit qu'il ne connait pas loadingRef
+   const [ loadingRef, setLoadingRef ] = useState(Element);
+
+   //ça pour l'observer
+   let options = {
+         root: null,
+         rootMargin: "0px",
+         threshold: 1.0
+      };
+   const handleObserver = (entities, observer) => { 
+      const y = entities[0].boundingClientRect.y;
+      if (plants.prevY > y) {
+         const lastPage = plants.page;
+         const curPage = lastPage;
+         dispatch(fetchPlants());
+         dispatch(setPage(curPage));
+      }
+      dispatch(setPrevY(y));
+   }; 
+   const observer = new IntersectionObserver( handleObserver, options );
+     
+   //ce qui remplace didmount dans une fonction
    useEffect(() => {
       dispatch(fetchPlants());
-   }, [dispatch]);
+      observer.observe(loadingRef);
+   }, [dispatch, loadingRef, observer]);
+
    
+
    const renderPlants = () => {
       if (loading) return <p>Plants is loading</p>
       if (hasErrors) return <p>Cannot display plants...</p>
@@ -25,9 +50,14 @@ const Plants = () => {
                slug={plant.slug}
             />
          )}
+         <div
+            ref={loadingRef => {(setLoadingRef(loadingRef)); console.log(loadingRef)}}
+         >
+         <span>Loading...</span>
+        </div>
       </div>
    }
-   
+
    return (  
       <PrettyStyle>
          {renderPlants()}
@@ -76,5 +106,5 @@ const PrettyStyle = styled.div`
       .grid-19 { grid-area: grid-19; }
    }
 `
-
-export default Plants;
+ 
+export default ScrollPlants;
