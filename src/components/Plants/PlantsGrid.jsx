@@ -15,9 +15,8 @@ const PlantsGrid = ({id, pageNumber, loading, hasErrors, plants}) => {
          )}
       </PrettyStyle>
    )
-
-   if (loading && id === pageNumber) return <p>Plants is loading</p>
-   if (hasErrors && id === pageNumber) return <p>Cannot display plants...</p>
+   if (loading) return <p>Plants is loading</p>
+   if (hasErrors) return <p>Cannot display plants...</p>
 }
 
 const PrettyStyle = styled.div`

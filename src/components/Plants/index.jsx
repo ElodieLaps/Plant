@@ -6,7 +6,7 @@ import PlantsGrid from './PlantsGrid';
 
 const Plants = () => {
    const dispatch = useDispatch();	
-   const { plants, scrollPages, loading, hasErrors } = useSelector(plantsSelector);
+   const { scrollPages, loading, hasErrors } = useSelector(plantsSelector);
    const [ pageNumber, setPageNumber ] = useState(1);
    
    const getNextPage = () => {
@@ -19,8 +19,8 @@ const Plants = () => {
    }, [dispatch, pageNumber]);
 
    if (scrollPages) return (  
+      
       <PrettyStyle className="plant-page">
-         <button onClick={() => getNextPage()}>next</button>
          {scrollPages.map((page, index) =>
             <PlantsGrid key={index}
                id={index}
@@ -30,6 +30,9 @@ const Plants = () => {
                hasErrors={hasErrors}
             />
          )}
+         {loading && <p>Plants is loading</p>}
+         {hasErrors && <p>Cannot display plants...</p>}
+         <button onClick={() => getNextPage()}>next</button>
       </PrettyStyle>
    )
 }
