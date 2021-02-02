@@ -4,7 +4,7 @@ import Plants from '../components/Plants';
 const App = () => {
   return (
     <PrettyStyle className="App">
-      <h1>viridi</h1>
+      <h1>Viridi</h1>
       <Plants/>
     </PrettyStyle>
   );

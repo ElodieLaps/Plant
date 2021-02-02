@@ -28,7 +28,7 @@ const Plants = () => {
             />
          )}
          {loading && <p>Plants is loading</p>}
-         {hasErrors && <p>Cannot display plants...</p>}
+         {!loading && hasErrors && <p>Cannot display plants...</p>}
          <button onClick={() => getNextPage()}>next</button>
       </PrettyStyle>
    )

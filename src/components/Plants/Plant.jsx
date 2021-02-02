@@ -2,7 +2,7 @@ import default_plant from '../../assets/img/default_plant.jpg';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Plant = ({name, picture, slug, gridNumber, action}) => {
+const Plant = ({name, picture, slug, gridNumber, action, plant}) => {
    return (  
    <PrettyStyle 
       className={`plant_${slug} grid-${gridNumber}`} 

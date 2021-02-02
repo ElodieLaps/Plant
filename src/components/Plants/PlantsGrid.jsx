@@ -2,8 +2,7 @@ import styled from "styled-components";
 import Plant from "./Plant";
 
 const PlantsGrid = ({loading, hasErrors, plants}) => {
-
-   if (plants.data) return (
+   return (
       <PrettyStyle className="plants-grid">
          {plants.data.map((plant, index) =>
             <Plant key={plant.id}
