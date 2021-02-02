@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Plant = ({name, picture, slug, gridNumber, action}) => {
    return (  
    <PrettyStyle 
-      className={`plant ${slug} grid-${gridNumber}`} 
+      className={`plant_${slug} grid-${gridNumber}`} 
       url={picture} 
       default_url={default_plant} 
       onClick={action}

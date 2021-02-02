@@ -7,6 +7,7 @@ export const initialState = {
   loading: false,
   hasErrors: false,
   plants: {},
+  scrollPages: []
 };
 
 const plantSlice = createSlice({
@@ -25,26 +26,30 @@ const plantSlice = createSlice({
       state.loading = false;
       state.hasErrors = true;
     },
+    addPages: state => {
+      state.scrollPages = [...state.scrollPages, state.plants];
+    }
   },
 });
 
-export const { getPlants, getPlantsSuccess, getPlantsFailure } = plantSlice.actions
+export const { getPlants, getPlantsSuccess, getPlantsFailure, addPages } = plantSlice.actions
 
 export const plantsSelector = state => state.plant;
 
 export default plantSlice.reducer;
 
-export function fetchPlants(page) {
+export function fetchPlants(pageNumber) {
   return async dispatch => {
     dispatch(getPlants());
 
     await axios
       .get(
-        `https://cors-anywhere.herokuapp.com/https://trefle.io/api/v1/plants?token=${token}&page=${page}`
+        `https://cors-anywhere.herokuapp.com/https://trefle.io/api/v1/plants?token=${token}&page=${pageNumber}`
       )
         .then(response => {
           const data =  response.data;
           dispatch(getPlantsSuccess(data));
+          dispatch(addPages(data));
         })
       .catch(error => {
         console.log(error)

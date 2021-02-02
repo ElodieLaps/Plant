@@ -11,6 +11,7 @@ const App = () => {
 }
 
 const PrettyStyle = styled.div`
+  min-height: 100vh;
   h1 {
     text-align: center;
     
