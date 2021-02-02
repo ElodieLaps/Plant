@@ -8,7 +8,6 @@ export const initialState = {
   hasErrors: false,
   plants: {},
   scrollPages: [],
-  pageNumber: 0
 };
 
 const plantSlice = createSlice({
@@ -29,14 +28,11 @@ const plantSlice = createSlice({
     },
     addPages: state => {
       state.scrollPages = [...state.scrollPages, state.plants];
-    },
-    incrementPageNumber: state => {
-      state.pageNumber = state.pageNumber + 1;
     }
   },
 });
 
-export const { getPlants, getPlantsSuccess, getPlantsFailure, addPages, incrementPageNumber } = plantSlice.actions
+export const { getPlants, getPlantsSuccess, getPlantsFailure, addPages } = plantSlice.actions
 
 export const plantsSelector = state => state.plant;
 
@@ -54,7 +50,6 @@ export function fetchPlants(pageNumber) {
           const data =  response.data;
           dispatch(getPlantsSuccess(data));
           dispatch(addPages(data));
-          dispatch(incrementPageNumber());
         })
       .catch(error => {
         console.log(error)

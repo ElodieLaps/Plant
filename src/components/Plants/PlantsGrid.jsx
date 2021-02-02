@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Plant from "./Plant";
 
-const PlantsGrid = ({id, pageNumber, loading, hasErrors, plants}) => {
+const PlantsGrid = ({loading, hasErrors, plants}) => {
 
    if (plants.data) return (
       <PrettyStyle className="plants-grid">
@@ -15,8 +15,6 @@ const PlantsGrid = ({id, pageNumber, loading, hasErrors, plants}) => {
          )}
       </PrettyStyle>
    )
-   if (loading) return <p>Plants is loading</p>
-   if (hasErrors) return <p>Cannot display plants...</p>
 }
 
 const PrettyStyle = styled.div`

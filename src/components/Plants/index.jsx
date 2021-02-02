@@ -18,13 +18,10 @@ const Plants = () => {
       dispatch(fetchPlants(pageNumber));
    }, [dispatch, pageNumber]);
 
-   if (scrollPages) return (  
-      
+   return (  
       <PrettyStyle className="plant-page">
          {scrollPages.map((page, index) =>
             <PlantsGrid key={index}
-               id={index}
-               pageNumber={pageNumber}
                plants={page}
                loading={loading}
                hasErrors={hasErrors}
